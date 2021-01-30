@@ -7,7 +7,11 @@ This project is part of the Udacity Azure ML Nanodegree. In this project, we bui
 ## Summary
 ### Problem Statement
 
-The given dataset is related with direct marketing campaigns bank. The aim is to predict whether a client will subscribe to a term deposit, denoted by the feature 'y', where 'y' would be subscribed ('yes') or not subscribed ('no').
+### Dataset:
+
+The dataset we have used is the UCI Bank Marketing dataset which is related with direct marketing campaigns of the UCI bank to showcase how we can use HyperDrive and AutoML for a classification problem. The classification goal is to predict if the client will subscribe to a term deposit with the bank denoted by the feature 'y', where 'y' would be subscribed ('yes') or not subscribed ('no'). There are 21 Columns and 10000 rows. 
+
+![Dataset](EDA/8.png)![Dataset](EDA/9.png)![Dataset](EDA/10.png)
 
 ### Solution
 
@@ -30,15 +34,15 @@ As a result of this run, we achieve an accuracy of 91.65% for C = 1 and max_iter
 
 **What are the benefits of the chosen parameter sampler?**
 
-Random Sampler promotes and supports early termination policies over a range, and allows picking a random value from a given range. This allows for tuning a hyperparameter more efficiently, as the sampler does not go through every single value in the range. Hence, it is possible to train an optimal model in a shorter period of time.
+Random Sampler promotes and supports early termination policies over a range, and allows picking a random value from a given range. This allows for tuning a hyperparameter more efficiently, as the sampler does not go through every single value in the range. Hence, it is possible to train an optimal model in a shorter period of time. Another reason of its selection is that it is faster and supports early termination of low-performance runs. If budget is not an issue, we could use Bayesian Parameter Sampling to explore the hyperparameter space or GridParameterSampling to exhaustively search over the search space.
 
 **What are the benefits of the early stopping policy chosen?**
 
-The Bandit Policy helps in termination of the hyperparameter tuning process, if there occurs a considerable drop in the performance of the model in terms of its chosen primary metric. This helps in eliminating the models that have sub-par performance.
+The Bandit Policy helps in termination of the hyperparameter tuning process, if there occurs a considerable drop in the performance of the model in terms of its chosen primary metric. This helps in eliminating the models that have sub-par performance. Other examples which we can use include Median Stopping Policy and Truncation Selection Policy. The Median Stopping Policy defines an early termination policy based on running averages of the primary metric of all runs while Truncation Selection Policy defines an early termination policy that cancels a given percentage of runs at each evaluation interval. Since Bandit Policy deals primarily with the performance of the model instead of running averages or a specified runs proportion, it terminates runs where the primary metric is not within the specified slack factor/slack amount compared to the best performing run.
 
 ## AutoML
 
-Our AutoML experiment and its run trained 48 models. The child-run that gave the best performing model was a Voting Ensemble model with an accuracy of 91.69%. Voting ensemble uses numerous models to make predictions with weighted averages, and then picks the one that has the majority votes.
+Our AutoML experiment and its run trained 48 models. The child-run that gave the best performing model was a Voting Ensemble model with an accuracy of 91.65%. Voting ensemble uses numerous models to make predictions with weighted averages, and then picks the one that has the majority votes.
 Here is a XGBoost Classifier part of the voting ensemble, along with its hyperparameters - 
 ```
 28 - xgboostclassifier
@@ -74,7 +78,7 @@ Here is a XGBoost Classifier part of the voting ensemble, along with its hyperpa
 ![AutoML Run](images/automlacc.png)
 
 ## Pipeline Comparison
-The hyperdrive pipeline run with a Logistic Regression model gives an accuracy of 91.65% which is equal to the one presented by the VotingEnsemble model of the AutoML run - 91.69%.
+The hyperdrive pipeline run with a Logistic Regression model gives an accuracy of 91.65% which is equal to the one presented by the VotingEnsemble model of the AutoML run - 91.65%.
 There are some differences in the architecture of both the pipelines:
 1. Hyperdrive only performs hyperparameter tuning for the chosen model, which in our case is Logistic Regression. On the other hand, AutoML performs hyperparameter tunes all the models it utilizes.
 2. Cross validation is performed in the case of AutoML with the value of cross validations = 5, such that each time a randomly sampled fraction (1/5 in our case) of data acts as the test set, and the rest as the train test. However such cross validation is not performed in the case of Hyperdrive pipeline, which only consists of a 20:80 split to estimate the accuracy of each run.
