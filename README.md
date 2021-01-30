@@ -26,7 +26,7 @@ The hyperdrive run involves a series of steps to be completed in order to reach 
 
 As a result of this run, we achieve an accuracy of 91.65% for C = 1 and max_iter = 50.
 
-![Hyperdrive Run](images/Hyperdrive-1.png)![Hyperdrive Run](images/hyperdrive-2.png)
+![Hyperdrive Run](images/HyperD1.png)![Hyperdrive Run](images/HyperD2.png)
 
 **What are the benefits of the chosen parameter sampler?**
 
@@ -71,7 +71,7 @@ Here is a XGBoost Classifier part of the voting ensemble, along with its hyperpa
  'verbosity': 0}
  ```
  
-![AutoML Run](images/automl-accuracy.png)
+![AutoML Run](images/automlacc.png)
 
 ## Pipeline Comparison
 The hyperdrive pipeline run with a Logistic Regression model gives an accuracy of 91.65% which is equal to the one presented by the VotingEnsemble model of the AutoML run - 91.69%.
